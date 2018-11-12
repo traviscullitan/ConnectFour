@@ -26,8 +26,11 @@ class GameBoard():
             for row in range(self.rows):
                 if self.board[row][col] is None:
                     self.board[row][col] = self.turn
-                    self.change_turn()
-                    return
+                    if self.check_win(row,col):
+                        return True
+                    else:
+                        self.change_turn()
+                        return False
 
     def change_turn(self):
         if self.turn == "R":
@@ -49,9 +52,23 @@ class GameBoard():
         print("")
 
     def check_win(self,row,col):
-        #TODO
-        return False
+        #Check for win along row
+        for offset in range(-self.win_length,self.win_length+1):
+            if col+offset < 0 or col+offset >= self.cols:
+                continue
+            else:
+                for c in range(col+offset,col+offset+self.win_length):
+                    if self.board[row][c] != self.turn:
+                        return False
 
+        #Check for win along column
+        #TODO
+
+        #Check for win along upper diagonal
+        #TODO
+
+        #Check for win along lower diagonal
+        #TODO
 
 
 
