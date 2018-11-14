@@ -54,18 +54,45 @@ class GameBoard():
     def check_win(self,row,col):
         #Check for win along row
         for offset in range(-self.win_length,self.win_length+1):
-            if col+offset < 0 or col+offset >= self.cols:
+            count = 0
+            if col+offset < 0 or col+offset+self.win_length > self.cols:
                 continue
             else:
                 for c in range(col+offset,col+offset+self.win_length):
-                    if self.board[row][c] != self.turn:
-                        return False
+                    if self.board[row][c] == self.turn:
+                        count +=1
+                    if count == self.win_length:
+                        return True
 
         #Check for win along column
-        #TODO
-
+        for offset in range(-self.win_length,self.win_length+1):
+            count = 0
+            if row+offset < 0 or row+offset+self.win_length > self.rows:
+                continue
+            else:
+                for r in range(row+offset,row+offset+self.win_length):
+                    if self.board[r][col] == self.turn:
+                        count +=1
+                    if count == self.win_length:
+                        return True
+    
+        
         #Check for win along upper diagonal
-        #TODO
+        """ 
+        This isn't working yet
+        r-o, c+o
+        for offset in range(-self.win_length,self.win_length+1):
+            count = 0
+            if (row+offset < 0 or row+offset+self.win_length > self.rows or
+                col+offset < 0 or col+offset+self.win_length > self.cols):
+                continue
+            else:
+                for o in range(row+offset,row+offset+self.win_length):
+                    if self.board[row+o][col+o] == self.turn:
+                        count +=1
+                    if count == self.win_length:
+                        return True
+        """
 
         #Check for win along lower diagonal
         #TODO
